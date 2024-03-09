@@ -135,7 +135,7 @@ class BGEM3FlagModel:
 
         all_dense_embeddings, all_lexical_weights, all_colbert_vec = [], [], []
         for start_index in tqdm(range(0, len(sentences), batch_size), desc="Inference Embeddings",
-                                disable=len(sentences) < 256):
+                                disable=True):#len(sentences) < 256):
             sentences_batch = sentences[start_index:start_index + batch_size]
             batch_data = self.tokenizer(
                 sentences_batch,
