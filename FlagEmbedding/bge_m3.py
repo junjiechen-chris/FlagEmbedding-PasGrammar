@@ -149,7 +149,7 @@ class BGEM3FlagModel:
                                 return_sparse=return_sparse,
                                 return_colbert=return_colbert_vecs)
             if return_dense:
-                all_dense_embeddings.append(output['dense_vecs'].cpu().numpy())
+                all_dense_embeddings.append(output['dense_vecs'])
 
             if return_sparse:
                 token_weights = output['sparse_vecs'].squeeze(-1)
@@ -159,6 +159,7 @@ class BGEM3FlagModel:
             if return_colbert_vecs:
                 all_colbert_vec.extend(list(map(_process_colbert_vecs, output['colbert_vecs'].cpu().numpy(),
                                                 batch_data['attention_mask'].cpu().numpy())))
+        return torch.cat(all_dense_embeddings, dim=0)
 
         if return_dense:
             all_dense_embeddings = np.concatenate(all_dense_embeddings, axis=0)
