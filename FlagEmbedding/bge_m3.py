@@ -22,8 +22,8 @@ def _transform_func(examples: Dict[str, List],
                        return_tensors='pt')
     return inputs
 
-
-class BGEM3FlagModel:
+from torch import nn
+class BGEM3FlagModel(nn.Module):
     def __init__(
             self,
             model_name_or_path: str = None,
@@ -32,7 +32,7 @@ class BGEM3FlagModel:
             use_fp16: bool = True,
             device: str = None
     ) -> None:
-
+        super(BGEM3FlagModel, self).__init__()
         self.model = BGEM3ForInference(
             model_name=model_name_or_path,
             normlized=normalize_embeddings,
